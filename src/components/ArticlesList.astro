@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+
+const posts = await getCollection('blog');
+const sortedPosts = posts.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+
+<div class="articles-list">
+  <h2>Articles de la Webradio</h2>
+  {sortedPosts.map((post) => (
+    <article class="article-item">
+      <h3>{post.data.title}</h3>
+      <p class="meta">
+        <time datetime={post.data.date.toISOString()}>
+          {post.data.date.toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {post.data.author && <span> par {post.data.author}</span>}
+        {post.data.rating && <span> - Note: {post.data.rating}/5</span>}
+      </p>
+      <audio controls>
+        <source src={post.data.audio_file} type="audio/mpeg" />
+        Votre navigateur ne supporte pas l'élément audio.
+      </audio>
+      <div class="body">
+        {post.body && <p>{post.body.slice(0, 200)}...</p>}
+      </div>
+    </article>
+  ))}
+</div>
+
+<style>
+  .articles-list {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  .article-item {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+  .meta {
+    font-size: 0.9rem;
+    color: #666;
+  }
+  audio {
+    width: 100%;
+    margin: 1rem 0;
+  }
+</style>

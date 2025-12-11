@@ -7,7 +7,7 @@ const blog = defineCollection({
     title: z.string(),
     date: z.date(),
     author: z.string().optional(),
-    audio_file: z.string(),
+    audio_file: z.string().optional(),
     rating: z.number().min(1).max(5).optional(),
   }),
 });

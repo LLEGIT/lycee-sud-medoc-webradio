@@ -1,17 +1,11 @@
 ---
+// index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 import ArticlesList from '../components/ArticlesList.astro';
 ---
 
-<html lang="fr">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/png" href="/favicon.png" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Lycée Sud Médoc Webradio</title>
-	</head>
-	<body>
-		<h1>Lycée Sud Médoc Webradio</h1>
-		<ArticlesList />
-	</body>
-</html>
+<BaseLayout title="Lycée Sud Médoc Webradio">
+	<ArticlesList />
+</BaseLayout>
+
+

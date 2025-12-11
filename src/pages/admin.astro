@@ -1,5 +1,6 @@
 ---
 // src/pages/admin.astro
+const isProduction = import.meta.env.PROD;
 ---
 <!doctype html>
 <html lang="fr">
@@ -8,7 +9,8 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
-    <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <link href={isProduction ? "/admin/config.yml" : "/admin/config-local.yml"} type="text/yaml" rel="cms-config-url" />
     <title>LSM Webradio | Backoffice</title>
   </head>
   <body>

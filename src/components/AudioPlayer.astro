@@ -1,0 +1,23 @@
+---
+// AudioPlayer.astro
+interface Props {
+  src: string;
+  title?: string;
+}
+
+const { src, title } = Astro.props;
+---
+
+<div class="audio-player bg-gray-100 p-4 rounded-lg shadow-md">
+  {title && <h4 class="text-lg font-semibold mb-2">{title}</h4>}
+  <audio controls class="w-full">
+    <source src={src} type="audio/mpeg" />
+    Votre navigateur ne supporte pas l'élément audio.
+  </audio>
+</div>
+
+<style>
+  audio {
+    /* Custom styling if needed */
+  }
+</style>

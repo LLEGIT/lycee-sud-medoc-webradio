@@ -13,11 +13,13 @@ collections:
     create: true
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     extension: "md"
+    preview_styles:
+      - /src/styles/global.css
 
     fields:
       - { label: "Mise en page", name: "layout", widget: "hidden", default: "webradio_post" } # Mise à jour du default
       - { label: "Titre de l'émission", name: "title", widget: "string", required: true }
-      - { label: "Date de diffusion", name: "date", widget: "datetime", date_format: "DD/MM/YYYY", time_format: "HH:mm", format: "YYYY-MM-DDTHH:mm:ssZ" }
+      - { label: "Date de diffusion", name: "date", widget: "date", date_format: "DD/MM/YYYY", format: "YYYY-MM-DD" }
       - { label: "Auteur/Intervenant(e)s", name: "author", widget: "string", required: false, hint: "Ex: Cécile Mouezagrolla ou Équipe du Lycée" }
       
       # Nouveau champ crucial pour la Webradio

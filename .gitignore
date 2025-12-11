@@ -22,3 +22,12 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# decap-cms local config
+public/admin/config-local.yml
+
+# public files folder
+public/files
+
+# cms content folder
+src/content/blog

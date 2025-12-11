@@ -1,0 +1,81 @@
+---
+// src/pages/admin-debug.astro
+const isProduction = import.meta.env.PROD;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Debug - LSM Webradio</title>
+    <style>
+      body { font-family: Arial, sans-serif; padding: 20px; }
+      .status { padding: 10px; margin: 10px 0; border-radius: 5px; }
+      .success { background: #d4edda; color: #155724; }
+      .error { background: #f8d7da; color: #721c24; }
+      .warning { background: #fff3cd; color: #856404; }
+    </style>
+  </head>
+  <body>
+    <h1>Decap CMS Debug Page</h1>
+    <p>Environment: <strong>{isProduction ? 'Production' : 'Development'}</strong></p>
+    
+    <div id="status-container">
+      <div class="status warning">Testing dependencies...</div>
+    </div>
+    
+    <h2>Configuration</h2>
+    <ul>
+      <li>Config file: <code>{isProduction ? "/admin/config.yml" : "/admin/config-local.yml"}</code></li>
+      <li>Hostname: <span id="hostname"></span></li>
+      <li>URL: <span id="current-url"></span></li>
+    </ul>
+    
+    <h2>Dependencies</h2>
+    <ul>
+      <li>React: <span id="react-status"></span></li>
+      <li>ReactDOM: <span id="reactdom-status"></span></li>
+      <li>Decap CMS: <span id="decap-status"></span></li>
+      <li>Netlify Identity: <span id="identity-status"></span></li>
+    </ul>
+    
+    <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/decap-cms-app@3.9.0/dist/decap-cms-app.js"></script>
+    
+    <script>
+      document.getElementById('hostname').textContent = window.location.hostname;
+      document.getElementById('current-url').textContent = window.location.href;
+      
+      function updateStatus(elementId, isAvailable) {
+        const element = document.getElementById(elementId);
+        if (isAvailable) {
+          element.innerHTML = '<strong style="color: green;">✓ Available</strong>';
+        } else {
+          element.innerHTML = '<strong style="color: red;">✗ Not available</strong>';
+        }
+      }
+      
+      function checkDependencies() {
+        updateStatus('react-status', typeof window.React !== 'undefined');
+        updateStatus('reactdom-status', typeof window.ReactDOM !== 'undefined');
+        updateStatus('decap-status', typeof window.DecapCmsApp !== 'undefined');
+        updateStatus('identity-status', typeof window.netlifyIdentity !== 'undefined');
+        
+        const statusContainer = document.getElementById('status-container');
+        
+        if (typeof window.React !== 'undefined' && 
+            typeof window.ReactDOM !== 'undefined' && 
+            typeof window.DecapCmsApp !== 'undefined') {
+          statusContainer.innerHTML = '<div class="status success">All dependencies loaded successfully!</div>';
+        } else {
+          statusContainer.innerHTML = '<div class="status error">Some dependencies failed to load. Check browser console for details.</div>';
+        }
+      }
+      
+      // Check dependencies after a short delay
+      setTimeout(checkDependencies, 1000);
+    </script>
+  </body>
+</html>

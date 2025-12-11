@@ -9,11 +9,33 @@ const isProduction = import.meta.env.PROD;
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="robots" content="noindex" />
+    
+    <!-- Netlify Identity -->
     <script is:inline src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    
+    <!-- React 18 for Decap CMS compatibility -->
+    <script 
+      src="https://unpkg.com/react@18/umd/react.production.min.js"
+      crossorigin
+      onerror="console.error('Failed to load React from CDN')">
+    </script>
+    <script 
+      src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"
+      crossorigin
+      onerror="console.error('Failed to load React DOM from CDN')">
+    </script>
+    
+    <!-- Decap CMS -->
+    <script 
+      src="https://unpkg.com/decap-cms-app@3.9.0/dist/decap-cms-app.js"
+      crossorigin
+      onerror="console.error('Failed to load Decap CMS from CDN')">
+    </script>
+    
     <link href={isProduction ? "/admin/config.yml" : "/admin/config-local.yml"} type="text/yaml" rel="cms-config-url" />
     <title>LSM Webradio | Backoffice</title>
   </head>
   <body>
-    <script type="module" src="/src/scripts/admin-client.js"></script>
+    <script type="module" src="/scripts/admin-client.js"></script>
   </body>
 </html>

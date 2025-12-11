@@ -1,4 +1,4 @@
-import React from 'react';
+const React = window.React;
 
 function BlogPostPreview({ entry, widgetFor }) {
   const title = entry.getIn(['data', 'title']);
